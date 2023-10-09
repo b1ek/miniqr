@@ -6,6 +6,14 @@ use warp::{Filter, reply::Response};
 
 #[tokio::main]
 async fn main() {
+    
+    let port = std::env::var("PORT").unwrap_or("80".to_string()).parse::<u16>();
+    if port.is_err() {
+        log::warn!("Could not parse port from environment, falling back to port 80");
+        log::warn!("Port parse error message: {}", port.clone().unwrap_err());
+    }
+    let port = port.unwrap_or(80);
+
     // Match any request and return hello world!
     let routes =
         warp::path::end()
@@ -38,5 +46,6 @@ async fn main() {
                     })
             );
 
-    warp::serve(routes).run(([127, 0, 0, 1], 3030)).await;
+    log::info!("Running on http://0.0.0.0:{port}");
+    warp::serve(routes).run(([0, 0, 0, 0], port)).await;
 }
