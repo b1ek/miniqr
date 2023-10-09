@@ -6,6 +6,8 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+ctrlc = "3.4.1"
+femme = "2.2.1"
 image = "0.23.0"
 log = "0.4.20"
 qrcode = "0.12.0"

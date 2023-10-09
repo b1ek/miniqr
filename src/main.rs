@@ -1,3 +1,5 @@
+use std::process::exit;
+
 use qrcode::QrCode;
 use image::{Luma, png::PngEncoder};
 use urlencoding::decode;
@@ -7,6 +9,8 @@ use warp::{Filter, reply::Response};
 #[tokio::main]
 async fn main() {
     
+    femme::with_level(log::LevelFilter::Info);
+
     let port = std::env::var("PORT").unwrap_or("80".to_string()).parse::<u16>();
     if port.is_err() {
         log::warn!("Could not parse port from environment, falling back to port 80");
@@ -46,6 +50,15 @@ async fn main() {
                     })
             );
 
-    log::info!("Running on http://0.0.0.0:{port}");
-    warp::serve(routes).run(([0, 0, 0, 0], port)).await;
+    let (addr, server) = warp::serve(routes)
+        .bind_with_graceful_shutdown(
+            ([0, 0, 0, 0], port),
+            async move {
+                tokio::signal::ctrl_c().await.map_err(|err| format!("Failed to listen to Ctrl-C: {}", err.to_string())).unwrap()
+            }
+        );
+    log::info!("Running on http://{}", addr);
+    server.await;
+
+    println!(); // print a new line before exiting
 }
