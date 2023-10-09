@@ -1,5 +1,3 @@
-use std::process::exit;
-
 use qrcode::QrCode;
 use image::{Luma, png::PngEncoder};
 use urlencoding::decode;
