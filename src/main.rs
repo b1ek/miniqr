@@ -1,5 +1,6 @@
 use qrcode::QrCode;
 use image::{Luma, png::PngEncoder};
+use urlencoding::decode;
 
 use warp::{Filter, reply::Response};
 
@@ -14,9 +15,14 @@ async fn main() {
                     .and(
                         warp::get()
                     )
-                    .map(|x| {
-                            let code = QrCode::new(x).unwrap();
-                            let img = code.render::<Luma<u8>>().build();
+                    .map(|x: String| {
+                            let text = decode(x.as_str()).unwrap().to_string();
+                            let code = QrCode::with_error_correction_level(text, qrcode::EcLevel::M).unwrap();
+                            let img = code
+                                .render::<Luma<u8>>()
+                                .quiet_zone(false)
+                                .module_dimensions(1, 1)
+                                .build();
 
                             let mut out = Vec::<u8>::new();
                             let enc = PngEncoder::new(&mut out);
