@@ -2,7 +2,7 @@
 
 miniQR is a micro HTTP service that generates QR codes on the fly.
 
-This server is very small (~1MB docker image), and portable since it
+This server is very small (~1MB docker image) and portable since it
 runs anywhere Rust can compile for.
 
 ## Building a docker image
