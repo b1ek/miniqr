@@ -33,7 +33,7 @@ async fn main() {
                             
                             let mut res = Response::new(out.into());
                             res.headers_mut().insert("Content-Type", warp::http::HeaderValue::from_static("image/png"));
-                            res.headers_mut().insert("Date", warp::http::HeaderValue::from_static("Thu, 01 Jan 1970 00:00:00 GMT"));
+                            res.headers_mut().insert("Date", warp::http::HeaderValue::from_static("Sun, 01 Jan 1984 00:00:00 GMT"));
                             res
                     })
             );
