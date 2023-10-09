@@ -1,0 +1,68 @@
+<style>pre{margin:60px auto}.hr{border:0;border-bottom:1px dotted #202020;background:0;margin:0;padding:0;font-size:0;display:block}</style>
+
+<pre style='max-width:536px'>
+<b># blek! QRGen</b>
+
+Author: blek &lt;me@blek.codes&gt;
+License: GPLv3-only (see 3)
+Made with Rust and <3
+Source code: https://git.blek.codes/blek/qrgen
+
+<span class='hr'>---</span>
+
+This is a simple microservice that generates QR codes for you via HTTP API.
+It has been originally developed for blek!File ( https://file.blek.codes ),
+which source code is at https://git.blek.codes/blek/bfile .
+
+<b>## 1. HTTP API Reference</b>
+
+GET /{ QR Code text }
+
+Returns a QR code image with the desired text. It may be confusing that the
+returned image is  very small,  but it is a  simple measure to decrease the
+bandwith usage on mobile devices.
+
+You can scale that image up with CSS, just like this:
+
+```css
+
+.qrcode-image {
+    width: 400px;
+    image-rendering: pixelated; /* This line "unblurs" the qr code */
+
+    padding: 60px;
+    background: white;
+}
+
+```
+
+<b>## 2. Customizing the generated QR</b>
+
+Unfourtunately, at the time I had no need to implement these features. PR's
+are welcome as well as suggestions to the features.
+
+However, the default settings for a QR are as follows:
+
+    Correction Level =  M
+    Image Type =        Grayscale PNG
+    PNG Compression =   None
+
+<b>## 3. License</b>
+This program is free software:    you can redistribute it  and/or modify it
+under the terms of the  GNU General Public License as published by the Free
+Software Foundation,   either version 3 of the License, or (at your option)
+any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the   implied warranty of    MERCHANTABILITY  or
+FITNESS FOR A PARTICULAR PURPOSE.    See the GNU General Public License for
+more details.
+
+You should have received a copy of the     GNU General Public License along
+with this program. If not, see &lt;https://www.gnu.org/licenses/&gt;. 
+<span style='user-select:none'>
+<span class='hr'>---</span>
+FCK/PTR
+</span>
+
+</pre>

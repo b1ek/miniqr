@@ -19,7 +19,7 @@ async fn main() {
     // Match any request and return hello world!
     let routes =
         warp::path::end()
-            .map(|| "Hello, World!")
+            .map(|| warp::reply::html(include_str!("index.html")))
             .or(
                 warp::path!(String)
                     .and(
