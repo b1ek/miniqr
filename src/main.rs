@@ -1,3 +1,5 @@
+#![forbid(unsafe_code)]
+
 use qrcode::QrCode;
 use image::{Luma, png::PngEncoder};
 use urlencoding::decode;
